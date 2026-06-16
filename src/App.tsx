@@ -1,20 +1,35 @@
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './AuthContext'
 import AuthPage from './AuthPage'
+import Layout from './Layout'
+import ProtectedRoute from './ProtectedRoute'
+import Dashboard from './Dashboard'
 import IngredientList from './IngredientList'
+import Recipes from './Recipes'
 
 function App() {
-  const { token, logout } = useAuth()
-
-  if (!token) return <AuthPage />
+  const { token } = useAuth()
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">My Ingredients</h1>
-        <button onClick={logout} className="text-gray-500 underline">Log out</button>
-      </div>
-      <IngredientList />
-    </div>
+    <Routes>
+      {/* Public route */}
+      <Route
+        path="/login"
+        element={token ? <Navigate to="/" replace /> : <AuthPage />}
+      />
+
+      {/* Protected routes — must be logged in */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/ingredients" element={<IngredientList />} />
+          <Route path="/recipes" element={<Recipes />} />
+        </Route>
+      </Route>
+
+      {/* Anything else → home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
 

@@ -10,7 +10,7 @@ function IngredientList() {
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-           const response = await api.get<IngredientListResponse>('/ingredients/')
+        const response = await api.get<IngredientListResponse>('/ingredients/')
         setIngredients(response.data.items)
         setError(null)
       } catch (err) {
@@ -20,7 +20,6 @@ function IngredientList() {
         setLoading(false)
       }
     }
-
     fetchIngredients()
   }, [])
 
@@ -28,19 +27,22 @@ function IngredientList() {
   if (error) return <p className="text-red-500">{error}</p>
 
   return (
-    <div className="grid gap-3">
-      {ingredients.map((ingredient) => (        
-        <div
-          key={ingredient.id}                 
-          className="bg-white shadow rounded-lg p-4 border border-gray-200"
-        >
-          <h3 className="font-bold text-gray-800">{ingredient.name}</h3>
-          <p className="text-gray-500 text-sm">{ingredient.category}</p>
-          <p className="text-orange-500 font-semibold">
-            ${ingredient.price_per_unit} / {ingredient.unit}   
-          </p>
-        </div>
-      ))}
+    <div>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">My Ingredients</h1>
+      <div className="grid gap-3">
+        {ingredients.map((ingredient) => (
+          <div
+            key={ingredient.id}
+            className="bg-white shadow rounded-lg p-4 border border-gray-200"
+          >
+            <h3 className="font-bold text-gray-800">{ingredient.name}</h3>
+            <p className="text-gray-500 text-sm">{ingredient.category}</p>
+            <p className="text-orange-500 font-semibold">
+              ${ingredient.price_per_unit} / {ingredient.unit}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
