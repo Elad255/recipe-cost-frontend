@@ -15,4 +15,12 @@ export interface IngredientListResponse {
   total: number
   page: number
   size: number
+   pages: number
+}
+
+export interface IngredientFormData {
+  name: string
+  category: string
+  unit: string
+  price_per_unit: number
 }
