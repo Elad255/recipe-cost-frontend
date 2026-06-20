@@ -6,6 +6,7 @@ import ProtectedRoute from './ProtectedRoute'
 import Dashboard from './Dashboard'
 import IngredientList from './IngredientList'
 import Recipes from './Recipes'
+import RecipeDetail from './RecipeDetail'
 
 function App() {
   const { token } = useAuth()
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/ingredients" element={<IngredientList />} />
           <Route path="/recipes" element={<Recipes />} />
+          <Route path="/recipes/:id" element={<RecipeDetail />} />   
         </Route>
       </Route>
 
