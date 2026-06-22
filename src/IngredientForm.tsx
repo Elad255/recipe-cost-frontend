@@ -13,13 +13,17 @@ function IngredientForm({ initialData, onSave, onCancel }: IngredientFormProps) 
   const [unit, setUnit] = useState(initialData?.unit ?? '')
   const [price, setPrice] = useState(initialData?.price_per_unit?.toString() ?? '')
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()                                  
+ const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!name.trim() || !category.trim() || !unit.trim() || !price) {
+      alert('Please fill in all fields')   // (or use showToast if you wired it in here)
+      return
+    }
     onSave({
       name,
       category,
       unit,
-      price_per_unit: parseFloat(price),         // text → number 
+      price_per_unit: parseFloat(price),
     })
   }
 

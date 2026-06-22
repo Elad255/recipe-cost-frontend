@@ -3,8 +3,12 @@ import api from './api'
 import type { Ingredient, IngredientListResponse, IngredientFormData } from './types'
 import Modal from './Modal'
 import IngredientForm from './IngredientForm'
+import Skeleton from './Skeleton'
+import { useToast } from './ToastContext'
 
 function IngredientList() {
+  const { showToast } = useToast()
+
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -72,9 +76,10 @@ function IngredientList() {
     try {
       await api.delete(`/ingredients/${id}`)
       fetchIngredients()
+      showToast('Ingredient deleted', 'success')
     } catch (err) {
       console.error(err)
-      alert('Failed to delete ingredient')
+      showToast('Failed to delete ingredient', 'error')
     }
   }
 
@@ -87,13 +92,14 @@ function IngredientList() {
       }
       setIsModalOpen(false)
       fetchIngredients()
+      showToast('Ingredient saved!', 'success')
     } catch (err) {
       console.error(err)
-      alert('Failed to save ingredient')
+      showToast('Failed to save ingredient', 'error')
     }
   }
 
-  if (loading) return <p className="text-gray-500">Loading ingredients...</p>
+  if (loading) return <Skeleton />
 
   return (
     <div>
@@ -151,7 +157,7 @@ function IngredientList() {
         {ingredients.map((ingredient) => (
           <div
             key={ingredient.id}
-            className="bg-white shadow rounded-lg p-4 border border-gray-200 flex justify-between items-center"
+            className="bg-white shadow rounded-lg p-4 border border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2"
           >
             <div>
               <h3 className="font-bold text-gray-800">{ingredient.name}</h3>

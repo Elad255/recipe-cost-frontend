@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import api from './api'
 import type { Recipe, Ingredient, IngredientListResponse } from './types'
+import Skeleton from './Skeleton'
 
 function RecipeDetail() {
   const { id } = useParams()
@@ -62,7 +63,7 @@ function RecipeDetail() {
     }
   }
 
-  if (loading) return <p className="text-gray-500">Loading recipe...</p>
+  if (loading) return <Skeleton />
   if (error) return <p className="text-red-500">{error}</p>
   if (!recipe) return null
 

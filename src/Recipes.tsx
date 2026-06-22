@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import api from './api'
 import type { Recipe, RecipeListResponse } from './types'
+import Skeleton from './Skeleton'
 
 function Recipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
@@ -24,7 +25,7 @@ function Recipes() {
     fetchRecipes()
   }, [])
 
-  if (loading) return <p className="text-gray-500">Loading recipes...</p>
+  if (loading) return <Skeleton />
   if (error) return <p className="text-red-500">{error}</p>
 
   return (
