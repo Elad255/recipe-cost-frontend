@@ -115,7 +115,7 @@ const chartRecipe = recipes.find((r) => r.id === effectiveId) ?? null
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie data={pieData} dataKey="value" nameKey="name" outerRadius={100} label>
-                {pieData.map((entry, index) => (
+                {pieData.map((_, index) => (
                   <Cell key={index} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
