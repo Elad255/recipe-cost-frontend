@@ -24,7 +24,9 @@ A React + TypeScript frontend for the [Recipe Cost Calculator API](https://githu
 ## Screenshots
 
 ![Dashboard](screenshots/dashboard.png)
-![Recipe detail](screenshots/recipe-detail.png)
+![Cost breakdown chart](screenshots/pie-chart.png)
+![Ingredients](screenshots/ingredients.png)
+![Recipes](screenshots/recipes.png)
 
 ## Running it
 
