@@ -1,73 +1,43 @@
-# React + TypeScript + Vite
+# Recipe Cost Calculator — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript frontend for the [Recipe Cost Calculator API](https://github.com/Elad255/recipe-cost-calculator). Restaurant owners can manage ingredients, build recipes, and see live cost and profit-margin calculations — the complete product on top of a backend I also built.
 
-Currently, two official plugins are available:
+![CI](https://github.com/Elad255/recipe-cost-frontend/actions/workflows/ci.yml/badge.svg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What it does
 
-## React Compiler
+- 🔐 **Authentication** — register, log in, and stay logged in across refreshes (JWT)
+- 🥚 **Ingredient management** — full create/read/update/delete with search, filter, sort, and pagination
+- 🍳 **Recipe builder** — add ingredients with quantities and watch costs recalculate live
+- 📊 **Dashboard** — summary stats, low-margin warnings, and a cost-breakdown chart
+- ✨ **Polished UX** — loading skeletons, toast notifications, responsive design
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+- **React 19** + **TypeScript** (Vite)
+- **Tailwind CSS** for styling
+- **React Router** for navigation
+- **Axios** for API calls (with auth interceptor)
+- **Recharts** for data visualization
+- **Docker** + **nginx** for production builds
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Screenshots
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![Dashboard](screenshots/dashboard.png)
+![Cost breakdown chart](screenshots/pie-chart.png)
+![Ingredients](screenshots/ingredients.png)
+![Recipes](screenshots/recipes.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Running it
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The whole stack (frontend + backend + database) runs with one command from the backend repo:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+\`\`\`bash
+docker compose up --build
+\`\`\`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Then open http://localhost:5173
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## The story
+
+I built this frontend on top of a FastAPI backend I developed myself — so this project is the complete product, front to back. My background as a professional cook is what inspired the Recipe Cost Calculator: it's the tool I wish I'd had in the kitchen.
