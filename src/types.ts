@@ -51,6 +51,14 @@ export interface Recipe {
   profit_margin: number | null
 }
 
+export interface RecipeFormData {
+  name: string
+  description: string | null
+  category: string
+  servings: number
+  selling_price: number | null
+}
+
 export interface RecipeListResponse {
   items: Recipe[]           
   total: number
