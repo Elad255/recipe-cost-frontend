@@ -1,12 +1,10 @@
 import { test, expect } from '@playwright/test';
-test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:5173/login');
-});
+import { LoginPage } from './pages/LoginPage';
 
 test('login fails with wrong password', async ({ page }) => {
-    await page.getByPlaceholder('Email').fill('playwright@test.com');
-    await page.getByPlaceholder('Password').fill('wrongpassword');
-    await page.getByRole('button', { name: 'Log In' }).click();
-    await expect(page.getByText('Login failed — check your email and password')).toBeVisible();
-    await expect(page).toHaveURL('http://localhost:5173/login');
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('playwright@test.com', 'wrongpassword');
+  await expect(loginPage.errorMessage).toBeVisible();
+  await expect(page).toHaveURL('http://localhost:5173/login');
 });

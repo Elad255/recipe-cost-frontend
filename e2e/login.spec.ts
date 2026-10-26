@@ -1,11 +1,9 @@
 import { test, expect } from '@playwright/test';
-test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:5173/login');
-});
+import { LoginPage } from './pages/LoginPage';
 
 test('user can log in', async ({ page }) => {
-  await page.getByPlaceholder('Email').fill('playwright@test.com');
-  await page.getByPlaceholder('Password').fill('Test1234');
-  await page.getByRole('button', { name: 'Log In' }).click();
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('playwright@test.com', 'Test1234');
   await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
 });
